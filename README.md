@@ -8,6 +8,7 @@ Your answer to the PROGRAMMING TASKS should be returned in the form of:
 .	2)  A folder of exported files that you will create as instructed in the PROGRAMMING TASKS below.  
 .	3)  A spreadsheet in CSV format called “results.csv” which contains the information requested in  the PROGRAMMING TASKS below.  
 If you do not submit all three of the above requested items, we will not be able to score your answers to the PROGRAMMING TASKS, and you will receive a 0/30 for the PROGRAMMING TASKS section of the test. 
+
 The “results.csv” report you generate should include the following column headings: 
 .	1)  “Repository Path”;  
 .	2)  “Copy Path”;  
@@ -15,7 +16,11 @@ The “results.csv” report you generate should include the following column he
 .	5)  “File Size”;  
 .	6)  “Date of File Creation”;  
 .	7)  “Line / Pixel Count”; and  
+
 PROGRAMMING TASK 1.1: Copy each file in “data.csv” from the “repository path” to the “copy path,” and correct the extension of each of the mislabeled files. Report the correct extracted paths (including corrected file extensions) in “results.csv” in the “Corrected File Path” column.  
+
 PROGRAMMING TASK 1.2: For each file, calculate the file size in bytes. Record this information in the “File Size” column of “results.csv.” 
+
 PROGRAMMING TASK 1.3: For each file, determine the date on which the file in the repository was created. Record this information in the “Date of File Creation” column of “results.csv.” 
+
 PROGRAMMING TASK 1.4: For each of the text files, calculate the number of lines per file; for each image file, calculate the number of pixels (i.e., height x width). Record this information in the “Line / Pixel Count” column of “results.csv.” 
