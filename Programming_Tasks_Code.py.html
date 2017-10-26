@@ -1,0 +1,65 @@
+
+# coding: utf-8
+
+# In[ ]:
+
+import os
+import os.path, time
+import errno
+import pandas as pd
+import numpy as np
+import re
+from shutil import *
+from PIL import Image
+data = pd.read_csv('/Users/mayankajha/Documents/Dispute Soft/mayanka.jha/data.csv')
+COLUMN_NAMES=['Repository Path','Copy Path','Corrected File Path','File Size','Date of File Creation','Line / Pixel Count']
+result = pd.DataFrame(index = range(0,len(data)), columns=COLUMN_NAMES) //creating an empty dataframe called result to store the required columns
+os.chdir('/Users/mayankajha/Documents/Dispute Soft/mayanka.jha/') //changing the working directory
+#To extract the file from repository answering Programming Task 1.1
+for index, row in data.iterrows():
+    directory = os.path.dirname(row["copy path"])
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+    copy2(row["repository path"], row["copy path"])
+#To check the extension label and store the corrected ones in a different column: Programming Task 1.1
+for i in range(0,len(data)):
+    file_path = data.iloc[i][1]
+    #print(file_path)
+    result.iloc[i][0]= file_path
+    result.iloc[i][1]= data.iloc[i][1]
+    filename, file_extension = splitext(file_path)
+    try:
+        file_object = open(file_path)
+        file_object.read()
+        #x = file_object.read()
+        #print(file_object.tell())
+        #print(time.ctime(os.path.getctime(file_path))
+        #print("This is a text file")
+        if(file_extension!= 'txt'):
+            new_filename = filename+'.txt'
+            result.iloc[i][2] = new_filename
+        else:
+            result.iloc[i][2] = file_path
+        #for i in range(0,len(data)):
+            #file_path1 = data.iloc[i][1]
+            #file_object1 = open(file_path1)
+            #y = file_object1.read()
+            #if(file_path1!=file_path):
+                #if (x==y):
+                    #print("Duplicate detected"+file_path1)
+        result.iloc[i][3]=file_object.tell()	#file size: Programming Task 1.3
+        result.iloc[i][4] = time.ctime(os.path.getctime(file_path)) #create Date: Programming Task 1.4
+        result.iloc[i][5] = sum(1 for line in open(file_path)) #no of line in text file: Programming Task 1.5 
+    except UnicodeDecodeError:
+        #print ("Failed to open file")
+        if(file_extension!= 'jpg'):
+            #print('error')
+            new_filename = filename+'.jpg'
+            result.iloc[i][3] = new_filename
+        else:
+            result.iloc[i][2] = file_path
+        result.iloc[i][3]=os.path.getsize(file_path) # file size: Programming Task 1.3
+        result.iloc[i][4] = time.ctime(os.path.getctime(file_path)) #create Date: Programming Task 1.4
+        result.iloc[i][5]= Image.open(file_path).size #Pixel count: // create Date: Programming Task 1.5
+    result.to_csv('Results.csv', encoding='utf-8', index=False)
+
